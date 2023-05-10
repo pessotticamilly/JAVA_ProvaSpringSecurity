@@ -60,8 +60,8 @@ public class AutenticacaoFiltro extends OncePerRequestFilter {
                 url.equals("/veterinario") /*&& metodo.equals("GET")*/ ||
                 url.equals("/api/servico") /*&& metodo.equals("GET")*/ ||
                 url.equals("/servico") /*&& metodo.equals("GET")*/)) {
-            System.out.println("Entrou no validarUrl");
             throw new RuntimeException();
         }
+        System.out.println("Saiu do validar url");
     }
 }

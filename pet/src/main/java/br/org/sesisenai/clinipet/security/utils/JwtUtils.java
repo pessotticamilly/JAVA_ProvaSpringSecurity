@@ -22,7 +22,7 @@ public class JwtUtils {
     public void validarToken(String token) {
         try {
             Jwts.parser().setSigningKey(senhaForte).parseClaimsJws(token);
-            System.out.println("Passou");
+            System.out.println("Token validado");
         } catch (Exception e) {
             throw new RuntimeException();
         }

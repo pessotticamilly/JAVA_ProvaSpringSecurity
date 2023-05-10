@@ -105,7 +105,6 @@ public class AutenticacaoConfig {
         http.csrf().disable();
         http.cors().configurationSource(corsConfigurationSource());
 
-        http.logout().deleteCookies("token").permitAll();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().addFilterBefore(new AutenticacaoFiltro(jpaService), UsernamePasswordAuthenticationFilter.class);
 

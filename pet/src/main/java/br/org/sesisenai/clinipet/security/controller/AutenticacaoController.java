@@ -4,6 +4,7 @@ import br.org.sesisenai.clinipet.security.model.dto.UsuarioDto;
 import br.org.sesisenai.clinipet.security.model.entity.UserJpa;
 import br.org.sesisenai.clinipet.security.utils.CookieUtils;
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.WebUtils;
 
 @RestController
 @RequestMapping("/login")
@@ -40,10 +42,21 @@ public class AutenticacaoController {
                 return ResponseEntity.ok().build();
             }
         } catch (Exception e) {
-            System.out.println("Erro - Autenticação (AutenticacaoController):");
+            System.out.println("Erro de Autenticação (AutenticacaoController):");
             System.out.println(e);
         }
 
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Object> logout (HttpServletRequest request, HttpServletResponse response) {
+        Cookie cookie = WebUtils.getCookie(request, "token");
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
+
+        response.addCookie(cookie);
+
+        return ResponseEntity.ok().build();
     }
 }
